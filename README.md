@@ -1,73 +1,72 @@
-# Welcome to your Lovable project
+# Civic Connect - SmartCity AI
 
-## Project info
+Civic Connect is a modern, AI-powered platform designed to bridge the gap between citizens and urban maintenance authorities. Developed for the **Prince - iSolve Hack 26_SmartHacks**, this application simplifies the process of reporting civic issues, tracking their status, and ensuring efficient resolution through a decentralized, transparent system.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🚀 Key Features
 
-## How can I edit this code?
+- **Automated Issue Reporting**: Citizens can easily raise complaints with AI-assisted categorization.
+- **Real-time Tracking**: Monitor the progress of complaints from "Pending" to "Resolved".
+- **Evidence-based Resolution**: Workers must provide video proof of completion to close tasks.
+- **Smart Dashboard**: Comprehensive view for officers to manage resources and priorities.
+- **Interactive Map**: Location-based issue visualization for better situational awareness.
+- **Notification System**: Instant updates for users and workers on task status changes.
 
-There are several ways of editing your application.
+## 🛠 Tech Stack
 
-**Use Lovable**
+- **Frontend**: React.js, Vite, TypeScript
+- **Styling**: Tailwind CSS, shadcn/ui
+- **Backend & Database**: Supabase (PostgreSQL, Auth, Storage)
+- **Charts**: Recharts
+- **Icons**: Lucide React
+- **Testing**: Vitest
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## 📦 Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js (v18 or higher)
+- npm or bun
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1.  **Clone the repository**:
+    ```sh
+    git clone https://github.com/Varshakaleeswaran/Prince-iSolve-Hack-26_SmartHacks.git
+    cd Prince-iSolve-Hack-26_SmartHacks
+    ```
 
-Follow these steps:
+2.  **Install dependencies**:
+    ```sh
+    npm install
+    ```
+
+3.  **Environment Setup**:
+    Create a `.env` file in the root directory and add your Supabase credentials:
+    ```env
+    VITE_SUPABASE_URL=your_supabase_url
+    VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+    ```
+
+4.  **Run the development server**:
+    ```sh
+    npm run dev
+    ```
+
+## 🏗 Build for Production
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+## 🧪 Running Tests
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```sh
+npm run test
+```
 
-**Use GitHub Codespaces**
+## 📜 License
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+This project is developed for hackathon purposes.
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+Built with 💡 for a smarter city.
