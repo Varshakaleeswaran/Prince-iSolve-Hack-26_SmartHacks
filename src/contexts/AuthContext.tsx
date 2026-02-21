@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       .select('*')
       .eq('id', userId)
       .maybeSingle();
-    
+
     if (profileData) {
       setProfile(profileData);
     }
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       .select('role')
       .eq('user_id', userId)
       .maybeSingle();
-    
+
     if (roleData) {
       setRole(roleData.role);
     }
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
-        
+
         // Defer Supabase calls with setTimeout to avoid deadlocks
         if (session?.user) {
           setTimeout(() => {
@@ -110,8 +110,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signUp = async (
-    email: string, 
-    password: string, 
+    email: string,
+    password: string,
     fullName: string,
     selectedRole: AppRole
   ): Promise<{ error: string | null }> => {
@@ -140,17 +140,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const { error: roleError } = await supabase
         .from('user_roles')
         .insert({ user_id: data.user.id, role: selectedRole });
-      
+
       if (roleError) {
         console.error('Error setting user role:', roleError);
       }
-      
+
       // Update profile with full name
       const { error: profileError } = await supabase
         .from('profiles')
         .update({ full_name: fullName })
         .eq('id', data.user.id);
-      
+
       if (profileError) {
         console.error('Error updating profile:', profileError);
       }
@@ -174,15 +174,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
+    <AuthContext.Provider value={{
+      user,
       session,
-      profile, 
-      role, 
+      profile,
+      role,
       isAuthenticated: !!user,
       isLoading,
-      signIn, 
-      signUp, 
+      signIn,
+      signUp,
       signOut,
       refreshProfile,
     }}>
@@ -191,6 +191,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

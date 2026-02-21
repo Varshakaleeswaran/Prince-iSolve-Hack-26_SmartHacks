@@ -1,17 +1,24 @@
+import { useState } from 'react';
 import { FileText, Clock, CheckCircle, AlertTriangle, TrendingUp, Loader2 } from 'lucide-react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { KPICard } from '@/components/dashboard/KPICard';
 import { ComplaintCard } from '@/components/dashboard/ComplaintCard';
 import { ComplaintChart } from '@/components/dashboard/ComplaintChart';
 import { ComplaintMap } from '@/components/map/ComplaintMap';
+import { ComplaintDetailDialog } from '@/components/complaint/ComplaintDetailDialog';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRealtimeComplaints } from '@/hooks/useRealtimeComplaints';
 import { Complaint, ChartData } from '@/types';
+import { Database } from '@/integrations/supabase/types';
+
+type RawComplaint = Database['public']['Tables']['complaints']['Row'];
 
 export const Dashboard = () => {
   const { profile } = useAuth();
   const { complaints, isLoading } = useRealtimeComplaints({});
-  
+  const [selectedDetailComplaint, setSelectedDetailComplaint] = useState<RawComplaint | null>(null);
+  const [showDetailDialog, setShowDetailDialog] = useState(false);
+
   const displayName = profile?.full_name || 'User';
 
   // Calculate KPIs from real data
@@ -37,11 +44,20 @@ export const Dashboard = () => {
     createdAt: new Date(c.created_at || new Date()),
     updatedAt: new Date(c.updated_at || new Date()),
     slaDeadline: new Date(c.sla_deadline || new Date()),
-    daysRemaining: c.sla_deadline 
+    daysRemaining: c.sla_deadline
       ? Math.ceil((new Date(c.sla_deadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
       : 7,
     aiVerified: false,
   }));
+
+  const handleViewDetails = (complaint: Complaint) => {
+    // Find raw complaint from the original complaints array to pass to dialog
+    const raw = complaints.find(c => c.id === complaint.id);
+    if (raw) {
+      setSelectedDetailComplaint(raw);
+      setShowDetailDialog(true);
+    }
+  };
 
   // Chart data from real complaints - using ChartData type with 'value' property
   const trendData: ChartData[] = [
@@ -130,7 +146,12 @@ export const Dashboard = () => {
           {mapComplaints.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-4">
               {mapComplaints.slice(0, 4).map((complaint) => (
-                <ComplaintCard key={complaint.id} complaint={complaint} showActions />
+                <ComplaintCard
+                  key={complaint.id}
+                  complaint={complaint}
+                  showActions
+                  onViewDetails={() => handleViewDetails(complaint)}
+                />
               ))}
             </div>
           ) : (
@@ -140,6 +161,12 @@ export const Dashboard = () => {
           )}
         </div>
       </div>
+
+      <ComplaintDetailDialog
+        complaint={selectedDetailComplaint}
+        open={showDetailDialog}
+        onOpenChange={setShowDetailDialog}
+      />
     </DashboardLayout>
   );
 };
